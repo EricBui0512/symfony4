@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\UsersGroup;
 use App\Repository\Interfaces\UsersGroupRepoInterface;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Repository\CustomizedServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -13,9 +13,8 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method UsersGroup[]    findAll()
  * @method UsersGroup[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UsersGroupRepository extends ServiceEntityRepository implements UsersGroupRepoInterface
+class UsersGroupRepository extends CustomizedServiceEntityRepository implements UsersGroupRepoInterface
 {
-    private $group;
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, UsersGroup::class);
@@ -24,28 +23,19 @@ class UsersGroupRepository extends ServiceEntityRepository implements UsersGroup
 
     public function __call($method, $args) {
         return call_user_func_array ( [
-            $this->group,
+            $this->entityRepo,
             $method
         ], $args );
     }
 
-    /**
-     * @return UsersGroup[]
-     */
-    public function getAllObjects(){
-        $entityManager = $this->getDoctrine()->getManager();
-        $usersGroup = $entityManager->getRepository('App:UsersGroup')->findAll();
-        return $usersGroup;
-    }
+
 
     /**
      * @param $id
      * @return UsersGroup
      */
     public function getObjectById($id){
-        $entityManager = $this->getDoctrine()->getManager();
-        $usersGroup = $entityManager->getRepository('App:UsersGroup')->find($id);
-        return $usersGroup;
+        return $this->entityRepo->find($id);
     }
 
 
@@ -66,7 +56,7 @@ class UsersGroupRepository extends ServiceEntityRepository implements UsersGroup
      */
     public function removeObject($id){
         $entityManager = $this->getDoctrine()->getManager();
-        $usersGroup = $entityManager->getRepository('App:UsersGroup')->find($id);
+        $usersGroup = $this->entityRepo->find($id);
         $entityManager->remove($usersGroup);
         $entityManager->flush();
         return true;
@@ -79,21 +69,17 @@ class UsersGroupRepository extends ServiceEntityRepository implements UsersGroup
      * @return bool
      */
     public function isUserExistInGroup($userId, $groupId) {
-        $entityManager = $this->getDoctrine()->getManager();
-        $userInGroup = $entityManager->getRepository('App:UserGroup')->findOneBy(
+        $userInGroup = $this->entityRepo->findOneBy(
             ['user_id' => $userId],
             ['group_id' => $groupId]);
 
-        if($userInGroup == null){
-            return false;
-        }
-        return true;
+        return ($userInGroup == null) ? true : false;
     }
 
 
     public function removeUserGroupById($groupId, $userId) {
         $entityManager = $this->getDoctrine()->getManager();
-        $userInGroups = $entityManager->getRepository('App:UserGroup')->findBy(
+        $userInGroups = $this->entityRepo->findBy(
             ['user_id' => $userId],
             ['group_id' => $groupId]);
         foreach ($userInGroups as $userInGroup) {
@@ -104,37 +90,4 @@ class UsersGroupRepository extends ServiceEntityRepository implements UsersGroup
 
     }
 
-
-
-
-
-
-    // /**
-    //  * @return UsersGroup[] Returns an array of UsersGroup objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?UsersGroup
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

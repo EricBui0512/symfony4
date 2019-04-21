@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\RoleAssignment;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Repository\CustomizedServiceEntityRepository;
 
 /**
  * @method RoleAssignment|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method RoleAssignment[]    findAll()
  * @method RoleAssignment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RoleAssignmentRepository extends ServiceEntityRepository
+class RoleAssignmentRepository extends CustomizedServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
@@ -25,43 +25,11 @@ class RoleAssignmentRepository extends ServiceEntityRepository
      * @return RoleAssignment[] Returns an array of RoleAssignment objects
      */
     public function getUserRoles($userId, $contextId) {
-        $entityManager = $this->getDoctrine()->getManager();
-        $userRoles = $entityManager->getRepository('App:RoleAssignment')->findBy(
+        $userRoles = $this->entityRepo->findBy(
             ['user_id' => $userId],
             ['context_id' => $contextId]
         );
         return $userRoles;
 
     }
-
-
-
-    // /**
-    //  * @return RoleAssignment[] Returns an array of RoleAssignment objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?RoleAssignment
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

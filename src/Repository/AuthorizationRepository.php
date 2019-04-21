@@ -2,10 +2,10 @@
 
 namespace App\Repository;
 
-
+use App\Repository\Interfaces\AuthorizationRepoInterface;
 use App\Utils\ConstantTerms;
 
-class AuthorizationRepository extends ServiceEntityRepository implements CapabilityRepoInterface
+class AuthorizationRepository extends ServiceEntityRepository implements AuthorizationRepoInterface
 {
     public function __construct(RegistryInterface $registry)
     {
@@ -22,7 +22,7 @@ class AuthorizationRepository extends ServiceEntityRepository implements Capabil
      */
     public function hasThisCapability($userId, $contextLevelName,$capabilityName,  $contextId = Null)
     {
-        $roleAssignments = new RoleAssignmentRepository();
+
         if ($contextLevelName == ConstantTerms::SYSTEM_ADMIN_CONTEXT && $contextId == null) {
             $contextId = 1;
         }
@@ -34,6 +34,7 @@ class AuthorizationRepository extends ServiceEntityRepository implements Capabil
         $capabilityRepository = new CapabilitiesRepository();
         $capabilityId = $capabilityRepository->getCapabilityByName()->getId();
 
+        $roleAssignments = new RoleAssignmentRepository();
         $userRoles = $roleAssignments->getUserRoles($userId, $contextId);
 
         $roleCapabilitiesRepository = new RoleCapabilitiesRepository();

@@ -6,8 +6,7 @@ use App\Entity\User;
 use App\Repository\Interfaces\UserRepoInterface;
 use App\Utils\ConstantTerms;
 
-
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Repository\CustomizedServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 
@@ -17,20 +16,19 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository implements UserRepoInterface
+class UserRepository extends CustomizedServiceEntityRepository implements UserRepoInterface
 {
-    private $users;
+
 
     public function __construct(RegistryInterface $registry)
     {
-        $this->users = User::class;
-        parent::__construct($registry, $this->users);
+        parent::__construct($registry, User::class);
     }
 
 
     public function __call($method, $args) {
         return call_user_func_array ( [
-            $this->users,
+            $this->entityRepo,
             $method
         ], $args );
     }
@@ -62,25 +60,15 @@ class UserRepository extends ServiceEntityRepository implements UserRepoInterfac
      */
     public function getObjectById($id)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $user = $entityManager->getRepository('App:User')->find($id);
-        return $user;
+        return $this->entityRepo->find($id);
     }
 
 
-    /**
-     * @return User[] return array of user object
-     */
-   public function getAllObjects() {
-       $entityManager = $this->getDoctrine()->getManager();
-       $users = $entityManager->getRepository('App:User')->findAll();
-       return $users;
-   }
 
 
    public function removeObject($id){
        $entityManager = $this->getDoctrine()->getManager();
-       $user = $entityManager->getRepository('App:User')->find($id);
+       $user = $this->entityRepo->find($id);
        $entityManager->remove($user);
        $entityManager->flush();
        return true;
@@ -125,33 +113,4 @@ class UserRepository extends ServiceEntityRepository implements UserRepoInterfac
 
     public function getByCondition($arg, $con);*/
 
-
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -11,7 +11,7 @@ use App\Repository\Interfaces\UserRepoInterface;
 use Symfony\Flex\Response;
 
 
-class AdminUserController extends UserController
+class AdminUserController extends AdminController
 {
 
 
@@ -23,11 +23,12 @@ class AdminUserController extends UserController
     public function createUserByAdmin(Request $request) {
 
         $userId = $request->request->get('userId');
-        if (! PermissionController::isSystemAdmin($userId)) {
+        if (! $this->isSystemAdmin($userId)) {
             return new JsonResponse(null, JsonResponse::HTTP_UNAUTHORIZED);
         };
 
-        if (! CapabilitySystemAdminController::isAddUserCapability($userId)) {
+        $capabilitySystemAdminController = new CapabilitySystemAdminController();
+        if (! $capabilitySystemAdminController->isAddUserCapability($userId)) {
             return new JsonResponse(null, JsonResponse::HTTP_UNAUTHORIZED);
         }
         $data = $request->request->get('data');
@@ -48,11 +49,13 @@ class AdminUserController extends UserController
      */
     public function deleteUserByAdmin(Request $request, int $id){
         $adminId = $request->request->get('userId');
-        if (! PermissionController::isSystemAdmin($adminId)) {
+
+        if (!$this->isSystemAdmin($adminId)) {
             return new JsonResponse(null, JsonResponse::HTTP_UNAUTHORIZED);
         };
 
-        if (! CapabilitySystemAdminController::isDeleteUserCapability($adminId)) {
+        $capabilitySystemAdminController = new CapabilitySystemAdminController();
+        if (! $capabilitySystemAdminController->isDeleteUserCapability($adminId)) {
             return new JsonResponse(null, JsonResponse::HTTP_UNAUTHORIZED);
         }
         $result = $this->deleteUser($id);

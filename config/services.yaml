@@ -59,22 +59,11 @@ services:
 
 
 
-     # the ``App\Repository\UserRepository`` service will be injected when
-        # an ``App\Repository\UserRepoInterface`` type-hint is detected
-    App\Repository\CapabilitiesRepository:
-      public: true
-      autowire: true
-      class: App\Repository\CapabilitiesRepository
-      factory: ["@doctrine.orm.default_entity_manager", getRepository]
-      arguments: [App\Entity\Capabilities]
-
-
-    App\Repository\Interfaces\CapabilityRepoInterface: '@App\Repository\CapabilitiesRepository'
 
 
 
-    # the ``App\Repository\UserRepository`` service will be injected when
-          # an ``App\Repository\UserRepoInterface`` type-hint is detected
+    # the ``App\Repository\AuthorizationRepository`` service will be injected when
+    # an ``App\Repository\AuthorizationRepoInterface`` type-hint is detected
     App\Repository\AuthorizationRepository:
       public: true
       autowire: true
@@ -86,8 +75,8 @@ services:
 
 
 
-     # the ``App\Repository\UserRepository`` service will be injected when
-              # an ``App\Repository\UserRepoInterface`` type-hint is detected
+     # the ``App\Repository\GroupRepository`` service will be injected when
+    # an ``App\Repository\GroupRepoInterface`` type-hint is detected
     App\Repository\GroupRepository:
       public: true
       autowire: true
@@ -99,8 +88,8 @@ services:
 
 
 
-    # the ``App\Repository\UserRepository`` service will be injected when
-                  # an ``App\Repository\UserRepoInterface`` type-hint is detected
+    # the ``App\Repository\UsersGroupRepository`` service will be injected when
+    # an ``App\Repository\UsersGroupRepoInterface`` type-hint is detected
     App\Repository\UsersGroupRepository:
       public: true
       autowire: true

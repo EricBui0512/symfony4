@@ -90,3 +90,8 @@ e28705,::1,GET,http://localhost:8000/lucky1/number,1555573340,2f494f,200
 cc6e35,::1,GET,http://localhost:8000/favicon.ico,1555696632,d4e6c8,200
 d4e6c8,::1,GET,http://localhost:8000/favicon.ico,1555696632,,404
 cab351,::1,GET,http://localhost:8000/,1555697015,,404
+937e86,::1,GET,http://localhost:8000/,1555782019,,404
+d9707e,::1,GET,http://localhost:8000/,1555782019,,404
+7b3ecc,::1,GET,http://localhost:8000/favicon.ico,1555782020,a36bfd,200
+a36bfd,::1,GET,http://localhost:8000/favicon.ico,1555782020,,404
+575535,::1,GET,http://localhost:8000/,1555782026,,404

@@ -6,7 +6,6 @@ namespace  App\Repository\Interfaces;
 
 interface RepoInterface
 {
-    public function getAllObjects();
 
     public function getObjectById($id);
 

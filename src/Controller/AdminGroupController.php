@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Interfaces\UserRepoInterface;
 use Symfony\Flex\Response;
 
-class AdminGroupController extends UserController
+class AdminGroupController extends AdminController
 {
 
     /**
@@ -21,7 +21,7 @@ class AdminGroupController extends UserController
      */
     public function createGroupByAdmin(Request $request) {
         $adminId = $request->request->get('userId');
-        if (! PermissionController::isSystemAdmin($adminId)) {
+        if (! $this->isSystemAdmin($adminId)) {
             return new JsonResponse(null, JsonResponse::HTTP_UNAUTHORIZED);
         }
         $data = array();
@@ -43,7 +43,7 @@ class AdminGroupController extends UserController
      */
     public function addUsersToGroupByAdmin(Request $request){
         $adminId = $request->request->get('userId');
-        if (! PermissionController::isSystemAdmin($adminId)) {
+        if (! $this->isSystemAdmin($adminId)) {
             return new JsonResponse(null, JsonResponse::HTTP_UNAUTHORIZED);
         }
 
@@ -65,7 +65,7 @@ class AdminGroupController extends UserController
      */
     public function deleteUserFromGroup(Request $request){
         $adminId = $request->request->get('userId');
-        if (! PermissionController::isSystemAdmin($adminId)) {
+        if (! $this->isSystemAdmin($adminId)) {
             return new JsonResponse(null, JsonResponse::HTTP_UNAUTHORIZED);
         }
 
@@ -89,7 +89,7 @@ class AdminGroupController extends UserController
      */
     public function deleteGroupByAdmin(Request $request, int $groupId) {
         $adminId = $request->request->get('userId');
-        if (! PermissionController::isSystemAdmin($adminId)) {
+        if (! $this->isSystemAdmin($adminId)) {
             return new JsonResponse(null, JsonResponse::HTTP_UNAUTHORIZED);
         }
 

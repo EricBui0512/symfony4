@@ -2,26 +2,20 @@
 
 namespace App\Controller;
 
-use App\Repository\Interfaces\AuthorizationRepoInterface;
+use App\Controller\CapabilityAuthorizationController;
 use App\Utils\ConstantTerms;
 
 
-class CapabilitySystemAdminController
+class CapabilitySystemAdminController extends CapabilityAuthorizationController
 {
-    private static $authorizationRepo;
 
-    public function __construct(AuthorizationRepoInterface $authorizationRepoInterface)
-    {
-       self::$authorizationRepo = $authorizationRepoInterface;
-    }
-
-    public static  function isAddUserCapability($userId) {
-        return self::$authorizationRepo->hasThisCapability($userId, ConstantTerms::SYSTEM_ADMIN_CONTEXT, ConstantTerms::ADD_USER);
+    public   function isAddUserCapability($userId) {
+        return $this->authorizationRepo->hasThisCapability($userId, ConstantTerms::SYSTEM_ADMIN_CONTEXT, ConstantTerms::ADD_USER);
 
     }
 
-    public static function isDeleteUserCapability($userId) {
-        return self::$authorizationRepo->hasThisCapability($userId, ConstantTerms::SYSTEM_ADMIN_CONTEXT, ConstantTerms::DELETE_USER);
+    public  function isDeleteUserCapability($userId) {
+        return $this->authorizationRepo->hasThisCapability($userId, ConstantTerms::SYSTEM_ADMIN_CONTEXT, ConstantTerms::DELETE_USER);
     }
 
 

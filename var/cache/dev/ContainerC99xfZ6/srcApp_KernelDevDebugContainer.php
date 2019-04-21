@@ -1,6 +1,6 @@
 <?php
 
-namespace ContainerHbKO2vE;
+namespace ContainerC99xfZ6;
 
 use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -65,7 +65,6 @@ class srcApp_KernelDevDebugContainer extends Container
             'App\\Controller\\PermissionController' => 'getPermissionControllerService.php',
             'App\\Controller\\UserController' => 'getUserControllerService.php',
             'App\\Repository\\AuthorizationRepository' => 'getAuthorizationRepositoryService.php',
-            'App\\Repository\\CapabilitiesRepository' => 'getCapabilitiesRepositoryService.php',
             'App\\Repository\\GroupRepository' => 'getGroupRepositoryService.php',
             'App\\Repository\\UserRepository' => 'getUserRepositoryService.php',
             'App\\Repository\\UsersGroupRepository' => 'getUsersGroupRepositoryService.php',
@@ -393,7 +392,7 @@ class srcApp_KernelDevDebugContainer extends Container
      */
     protected function getCache_AppService()
     {
-        $a = new \Symfony\Component\Cache\Adapter\FilesystemAdapter('KQWIC7H6gU', 0, ($this->targetDirs[0].'/pools'), new \Symfony\Component\Cache\Marshaller\DefaultMarshaller(NULL));
+        $a = new \Symfony\Component\Cache\Adapter\FilesystemAdapter('lqhVW-R20j', 0, ($this->targetDirs[0].'/pools'), new \Symfony\Component\Cache\Marshaller\DefaultMarshaller(NULL));
         $a->setLogger(($this->privates['monolog.logger.cache'] ?? $this->getMonolog_Logger_CacheService()));
 
         return $this->services['cache.app'] = new \Symfony\Component\Cache\Adapter\TraceableAdapter($a);
@@ -406,7 +405,7 @@ class srcApp_KernelDevDebugContainer extends Container
      */
     protected function getCache_SystemService()
     {
-        return $this->services['cache.system'] = new \Symfony\Component\Cache\Adapter\TraceableAdapter(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('BOnhllYMej', 0, $this->getParameter('container.build_id'), ($this->targetDirs[0].'/pools'), ($this->privates['monolog.logger.cache'] ?? $this->getMonolog_Logger_CacheService())));
+        return $this->services['cache.system'] = new \Symfony\Component\Cache\Adapter\TraceableAdapter(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('tBI+r8+rWO', 0, $this->getParameter('container.build_id'), ($this->targetDirs[0].'/pools'), ($this->privates['monolog.logger.cache'] ?? $this->getMonolog_Logger_CacheService())));
     }
 
     /**
@@ -866,7 +865,7 @@ class srcApp_KernelDevDebugContainer extends Container
      */
     protected function getCache_AnnotationsService()
     {
-        return $this->privates['cache.annotations'] = new \Symfony\Component\Cache\Adapter\TraceableAdapter(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('hJcZbRk9-+', 0, $this->getParameter('container.build_id'), ($this->targetDirs[0].'/pools'), ($this->privates['monolog.logger.cache'] ?? $this->getMonolog_Logger_CacheService())));
+        return $this->privates['cache.annotations'] = new \Symfony\Component\Cache\Adapter\TraceableAdapter(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('JhM0J91ali', 0, $this->getParameter('container.build_id'), ($this->targetDirs[0].'/pools'), ($this->privates['monolog.logger.cache'] ?? $this->getMonolog_Logger_CacheService())));
     }
 
     /**
@@ -876,7 +875,7 @@ class srcApp_KernelDevDebugContainer extends Container
      */
     protected function getCache_SecurityExpressionLanguageService()
     {
-        return $this->privates['cache.security_expression_language'] = new \Symfony\Component\Cache\Adapter\TraceableAdapter(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('qulC+1SwTK', 0, $this->getParameter('container.build_id'), ($this->targetDirs[0].'/pools'), ($this->privates['monolog.logger.cache'] ?? $this->getMonolog_Logger_CacheService())));
+        return $this->privates['cache.security_expression_language'] = new \Symfony\Component\Cache\Adapter\TraceableAdapter(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('yu8Qio4Ohi', 0, $this->getParameter('container.build_id'), ($this->targetDirs[0].'/pools'), ($this->privates['monolog.logger.cache'] ?? $this->getMonolog_Logger_CacheService())));
     }
 
     /**
@@ -886,7 +885,7 @@ class srcApp_KernelDevDebugContainer extends Container
      */
     protected function getCache_SerializerService()
     {
-        return $this->privates['cache.serializer'] = new \Symfony\Component\Cache\Adapter\TraceableAdapter(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('gqeni7JkwP', 0, $this->getParameter('container.build_id'), ($this->targetDirs[0].'/pools'), ($this->privates['monolog.logger.cache'] ?? $this->getMonolog_Logger_CacheService())));
+        return $this->privates['cache.serializer'] = new \Symfony\Component\Cache\Adapter\TraceableAdapter(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('+-D7LcPgwE', 0, $this->getParameter('container.build_id'), ($this->targetDirs[0].'/pools'), ($this->privates['monolog.logger.cache'] ?? $this->getMonolog_Logger_CacheService())));
     }
 
     /**
@@ -896,7 +895,7 @@ class srcApp_KernelDevDebugContainer extends Container
      */
     protected function getCache_ValidatorService()
     {
-        return $this->privates['cache.validator'] = new \Symfony\Component\Cache\Adapter\TraceableAdapter(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('f+1BdAR-Fv', 0, $this->getParameter('container.build_id'), ($this->targetDirs[0].'/pools'), ($this->privates['monolog.logger.cache'] ?? $this->getMonolog_Logger_CacheService())));
+        return $this->privates['cache.validator'] = new \Symfony\Component\Cache\Adapter\TraceableAdapter(\Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('T1u3n6ONHv', 0, $this->getParameter('container.build_id'), ($this->targetDirs[0].'/pools'), ($this->privates['monolog.logger.cache'] ?? $this->getMonolog_Logger_CacheService())));
     }
 
     /**

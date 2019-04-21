@@ -20,6 +20,11 @@ class UserController extends AbstractController
     }
 
 
+
+    /**
+     * @param $data
+     * @return mixed
+     */
     public function createUser($data) {
         $data["salt"] = uniqid ( mt_rand (), true );
         $data["hash"] = hash('sha256',$data["salt"] . data['password'] . $data["salt"]);
@@ -27,6 +32,10 @@ class UserController extends AbstractController
     }
 
 
+    /**
+     * @param $userId
+     * @return bool
+     */
     public function deleteUser($userId){
         if (! $this->userRepo->getObjectById($userId)){
             return false;

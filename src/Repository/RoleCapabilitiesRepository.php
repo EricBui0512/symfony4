@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\RoleCapabilities;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Repository\CustomizedServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method RoleCapabilities[]    findAll()
  * @method RoleCapabilities[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RoleCapabilitiesRepository extends ServiceEntityRepository
+class RoleCapabilitiesRepository extends CustomizedServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
@@ -27,45 +27,14 @@ class RoleCapabilitiesRepository extends ServiceEntityRepository
      * @return bool
      */
     public function hasThisCapability($roleId, $contextLevelId, $capabilityId) {
-        $entityManager = $this->getDoctrine()->getManager();
-        $roleCapabilities = $entityManager->getRepository('App:RoleCapabilities')->findOneBy(
+        $roleCapabilities = $this->entityRepo->findOneBy(
             ['role_id' => $roleId],
             ['context_level' => $contextLevelId],
             ['capability' => $capabilityId]
         );
 
-        if($roleCapabilities == null){
-            return false;
-        }
-        return true;
+        return ($roleCapabilities == null) ? true : false;
     }
 
-    // /**
-    //  * @return RoleCapabilities[] Returns an array of RoleCapabilities objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?RoleCapabilities
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

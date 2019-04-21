@@ -3,8 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Capabilities;
-use App\Repository\Interfaces\CapabilityRepoInterface;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Repository\CustomizedServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -13,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Capabilities[]    findAll()
  * @method Capabilities[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CapabilitiesRepository extends ServiceEntityRepository implements CapabilityRepoInterface
+class CapabilitiesRepository extends CustomizedServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
@@ -27,42 +26,11 @@ class CapabilitiesRepository extends ServiceEntityRepository implements Capabili
      * @return Capabilities Return Capabilities objects
      */
     public function getCapabilityByName($capabilityName) {
-        $entityManager = $this->getDoctrine()->getManager();
-        $capability = $entityManager->getRepository('App:Capabilities')->findOneBy(
+
+        $capability = $this->entityRepo->findOneBy(
             ['name' => $capabilityName]
         );
         return $capability;
     }
 
-
-
-
-    // /**
-    //  * @return Capabilities[] Returns an array of Capabilities objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Capabilities
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -411,8 +411,12 @@
     </service>
     <service id="App\Controller\GroupController" class="App\Controller\GroupController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
       <argument type="service" id="App\Repository\GroupRepository"/>
       <argument type="service" id="App\Repository\UsersGroupRepository"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.KTVqfp6.App\Controller\GroupController"/>
+      </call>
     </service>
     <service id="App\Controller\PermissionController" class="App\Controller\PermissionController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
@@ -429,10 +433,9 @@
     <service id="App\Repository\AuthorizationRepository" class="App\Repository\AuthorizationRepository" public="true" autowire="true" autoconfigure="true">
       <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
     </service>
-    <service id="App\Repository\CapabilitiesRepository" class="App\Repository\CapabilitiesRepository" public="true" autowire="true" autoconfigure="true">
+    <service id="App\Repository\CapabilitiesRepository" class="App\Repository\CapabilitiesRepository" public="false" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
-      <argument>App\Entity\Capabilities</argument>
-      <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
+      <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\ContextLevelsRepository" class="App\Repository\ContextLevelsRepository" public="false" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -4317,15 +4320,14 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AdminUserController" class="App\Controller\AdminUserController" public="false" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AdminUserController" class="App\Controller\AdminUserController" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AdminUserController" class="App\Controller\AdminUserController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\GroupController" class="App\Controller\GroupController" public="false" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\GroupController" class="App\Controller\GroupController" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\GroupController" class="App\Controller\GroupController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" public="false" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CapabilitiesRepository" class="App\Repository\CapabilitiesRepository" public="true" autowire="true" abstract="true">
-      <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
-    </service>
-    <service id=".abstract.instanceof.App\Repository\CapabilitiesRepository" class="App\Repository\CapabilitiesRepository" public="true" autowire="true" autoconfigure="true" abstract="true">
-      <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
-    </service>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CapabilitiesRepository" class="App\Repository\CapabilitiesRepository" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\CapabilitiesRepository" class="App\Repository\CapabilitiesRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ContextLevelsRepository" class="App\Repository\ContextLevelsRepository" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ContextLevelsRepository" class="App\Repository\ContextLevelsRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ContextRepository" class="App\Repository\ContextRepository" public="false" autowire="true" abstract="true"/>
@@ -4801,6 +4803,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.KTVqfp6" method="withContext"/>
     </service>
+    <service id=".service_locator.KTVqfp6.App\Controller\GroupController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\GroupController"/>
+      <argument>App\Controller\GroupController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.KTVqfp6" method="withContext"/>
+    </service>
     <service id=".service_locator.KTVqfp6.App\Controller\UserController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\UserController"/>
       <argument>App\Controller\UserController</argument>
@@ -5110,7 +5118,6 @@
     </service>
     <service id="Psr\Container\ContainerInterface" alias="service_container" public="false"/>
     <service id="Symfony\Component\DependencyInjection\ContainerInterface" alias="service_container" public="false"/>
-    <service id="App\Repository\Interfaces\CapabilityRepoInterface" alias="App\Repository\CapabilitiesRepository" public="false"/>
     <service id="App\Repository\Interfaces\GroupRepoInterface" alias="App\Repository\GroupRepository" public="false"/>
     <service id="App\Repository\Interfaces\UserRepoInterface" alias="App\Repository\UserRepository" public="false"/>
     <service id="App\Repository\Interfaces\UsersGroupRepoInterface" alias="App\Repository\UsersGroupRepository" public="false"/>
