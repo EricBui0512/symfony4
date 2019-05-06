@@ -6,6 +6,7 @@ namespace App\Domain\Entity\Capabilities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Domain\Entity\Role\RoleCapabilities;
 
 /**
  * Class Capabilities

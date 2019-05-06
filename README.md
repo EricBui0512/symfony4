@@ -4,7 +4,6 @@
 
 1. clone this repo
 2. ```docker-compose up```
+3. import the sample database 20190506.sql
+4. localhost:8888/api/hello
 
-Open your browser on "http://localhost:8888?XDEBUG_SESSION_START=PHPSTORM"
-
-## Configuring PHPStorm and XDEBUG

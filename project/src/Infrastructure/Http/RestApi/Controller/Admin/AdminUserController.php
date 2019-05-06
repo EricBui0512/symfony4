@@ -65,4 +65,25 @@ class AdminUserController extends AdminController
 
 
 
+
+    /**
+     * find hello
+     * @Rest\Get("/hello")
+     * @param Request $request
+     * @return View
+     */
+    public function hello(Request $request) :View
+    {
+        $someVar = "hello";
+
+        $someVar .= " xdebug";
+
+        return View::create($someVar, Response::HTTP_OK);
+    }
+
+
+
+
+
+
 }

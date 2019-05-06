@@ -5,7 +5,7 @@ namespace App\Domain\Entity\Role;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Domain\Entity\Context\Context;
-use App\Domain\Entity\User;
+use App\Domain\Entity\User\User;
 
 /**
  * @ORM\Entity
