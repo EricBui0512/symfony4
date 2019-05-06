@@ -1,0 +1,8 @@
+
+restapi_controllers:
+  resource: ../../src/Infrastructure/Http/RestApi/Controller/
+  type: annotation
+  prefix: /api
+  requirements:
+          _format: "json"
+
