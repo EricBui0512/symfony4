@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Doctrine\ORM\EntityNotFoundException;
 
 
-class AdminGroupService extends AdminService
+final class AdminGroupService extends AdminService
 {
     private $capabilityAdminService;
     private $groupService;

@@ -16,7 +16,7 @@ use App\Domain\Entity\User\UserRepoInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 
-class AdminUserService extends AdminService
+final class AdminUserService extends AdminService
 {
     private $capabilityAdminService;
     public function __construct(UserRepoInterface $userRepoInterface, CapabilitySystemAdminService $capabilitySystemAdminService) {

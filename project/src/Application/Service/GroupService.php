@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use Doctrine\ORM\EntityNotFoundException;
 use App\Domain\Entity\User\UserRepoInterface;
 
-class GroupService
+final class GroupService
 {
     private $groupRepo;
     private $groupUserRepo;

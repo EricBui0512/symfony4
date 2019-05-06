@@ -9,7 +9,7 @@
 namespace App\Application\Service\Authorization;
 use App\Application\Utils\ConstantTerms;
 
-class CapabilityGroupAdminService extends CapabilityAuthorizationService
+final class CapabilityGroupAdminService extends CapabilityAuthorizationService
 {
 
     public function isCreateGroupCapability($userId) {
